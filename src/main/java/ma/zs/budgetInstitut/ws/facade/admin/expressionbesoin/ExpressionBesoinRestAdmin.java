@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import ma.zs.budgetInstitut.bean.core.expressionbesoin.ExpressionBesoin;
 import ma.zs.budgetInstitut.dao.criteria.core.expressionbesoin.ExpressionBesoinCriteria;
 import ma.zs.budgetInstitut.service.facade.admin.expressionbesoin.ExpressionBesoinAdminService;
+import ma.zs.budgetInstitut.service.impl.admin.expressionbesoin.ExpressionBesoinAdminServiceImpl;
 import ma.zs.budgetInstitut.ws.converter.expressionbesoin.ExpressionBesoinConverter;
 import ma.zs.budgetInstitut.ws.dto.expressionbesoin.ExpressionBesoinDto;
 import ma.zs.budgetInstitut.zynerator.controller.AbstractController;
@@ -21,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import ma.zs.budgetInstitut.zynerator.process.Result;
@@ -33,7 +35,16 @@ import ma.zs.budgetInstitut.zynerator.dto.FileTempDto;
 @RequestMapping("/api/admin/expressionBesoin/")
 public class ExpressionBesoinRestAdmin  extends AbstractController<ExpressionBesoin, ExpressionBesoinDto, ExpressionBesoinCriteria, ExpressionBesoinAdminService, ExpressionBesoinConverter> {
 
-
+@Autowired
+private ExpressionBesoinAdminServiceImpl expressionBesoinAdminService;
+    @PostMapping("/accorder-chef")
+    public ResponseEntity<?> accorderChef(@RequestParam Long idExpressionBesoin,
+                                          @RequestParam BigDecimal qteDemandee,
+                                          @RequestParam BigDecimal qteAccordee,
+                                          @RequestParam BigDecimal qteLivre) {
+        expressionBesoinAdminService.accorderChef(idExpressionBesoin, qteDemandee, qteAccordee, qteLivre);
+        return ResponseEntity.ok().build();
+    }
 
     @Operation(summary = "upload one expressionBesoin")
     @RequestMapping(value = "upload", method = RequestMethod.POST, consumes = "multipart/form-data")

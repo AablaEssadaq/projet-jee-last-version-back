@@ -9,6 +9,8 @@ import ma.zs.budgetInstitut.service.facade.admin.expressionbesoin.ExpressionBeso
 import ma.zs.budgetInstitut.zynerator.service.AbstractServiceImpl;
 import ma.zs.budgetInstitut.zynerator.util.ListUtil;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -58,7 +60,19 @@ public class ExpressionBesoinDetailAdminServiceImpl extends AbstractServiceImpl<
         return dao.countByProduitId(id);
     }
 
+    public void accorderQuantitesChef(Long idExpressionBesoinDetail, BigDecimal qteDemandee, BigDecimal qteAccordee, BigDecimal qteLivre) {
+        ExpressionBesoinDetail expressionBesoinDetail = dao.findById(idExpressionBesoinDetail).orElse(null);
 
+        if (expressionBesoinDetail != null) {
+            // Accord du chef d'établissement sur les quantités
+            expressionBesoinDetail.setQteDemandee(qteDemandee);
+            expressionBesoinDetail.setQteAccordee(qteAccordee);
+            expressionBesoinDetail.setQteLivre(qteLivre);
+
+            // Enregistrement des modifications
+            dao.save(expressionBesoinDetail);
+        }
+    }
 
 
 
