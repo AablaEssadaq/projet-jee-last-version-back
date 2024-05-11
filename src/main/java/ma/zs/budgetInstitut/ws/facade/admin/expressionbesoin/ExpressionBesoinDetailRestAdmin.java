@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import ma.zs.budgetInstitut.bean.core.expressionbesoin.ExpressionBesoinDetail;
 import ma.zs.budgetInstitut.dao.criteria.core.expressionbesoin.ExpressionBesoinDetailCriteria;
 import ma.zs.budgetInstitut.service.facade.admin.expressionbesoin.ExpressionBesoinDetailAdminService;
+import ma.zs.budgetInstitut.service.impl.admin.expressionbesoin.ExpressionBesoinDetailAdminServiceImpl;
 import ma.zs.budgetInstitut.ws.converter.expressionbesoin.ExpressionBesoinDetailConverter;
 import ma.zs.budgetInstitut.ws.dto.expressionbesoin.ExpressionBesoinDetailDto;
 import ma.zs.budgetInstitut.zynerator.controller.AbstractController;
@@ -21,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import ma.zs.budgetInstitut.zynerator.process.Result;
@@ -33,7 +35,16 @@ import ma.zs.budgetInstitut.zynerator.dto.FileTempDto;
 @RequestMapping("/api/admin/expressionBesoinDetail/")
 public class ExpressionBesoinDetailRestAdmin  extends AbstractController<ExpressionBesoinDetail, ExpressionBesoinDetailDto, ExpressionBesoinDetailCriteria, ExpressionBesoinDetailAdminService, ExpressionBesoinDetailConverter> {
 
-
+@Autowired
+private ExpressionBesoinDetailAdminServiceImpl expressionBesoinDetailAdminService;
+    @PostMapping("/accorder-quantites-chef")
+    public ResponseEntity<?> accorderQuantitesChef(@RequestParam Long idExpressionBesoinDetail,
+                                                   @RequestParam BigDecimal qteDemandee,
+                                                   @RequestParam BigDecimal qteAccordee,
+                                                   @RequestParam BigDecimal qteLivre) {
+        expressionBesoinDetailAdminService.accorderQuantitesChef(idExpressionBesoinDetail, qteDemandee, qteAccordee, qteLivre);
+        return ResponseEntity.ok().build();
+    }
 
     @Operation(summary = "upload one expressionBesoinDetail")
     @RequestMapping(value = "upload", method = RequestMethod.POST, consumes = "multipart/form-data")
