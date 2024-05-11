@@ -1,5 +1,6 @@
 package ma.zs.budgetInstitut.service.facade.admin.budget;
 
+import java.math.BigDecimal;
 import java.util.List;
 import ma.zs.budgetInstitut.bean.core.budget.BudgetEntiteAdmin;
 import ma.zs.budgetInstitut.dao.criteria.core.budget.BudgetEntiteAdminCriteria;
@@ -16,6 +17,7 @@ public interface BudgetEntiteAdminAdminService extends  IService<BudgetEntiteAdm
     int deleteByBudgetId(Long id);
     long countByBudgetId(Long id);
 
+      
 
 
 

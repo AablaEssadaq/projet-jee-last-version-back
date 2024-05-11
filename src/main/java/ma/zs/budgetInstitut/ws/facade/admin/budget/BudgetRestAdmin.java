@@ -20,7 +20,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import ma.zs.budgetInstitut.zynerator.process.Result;
@@ -33,6 +33,11 @@ import ma.zs.budgetInstitut.zynerator.dto.FileTempDto;
 @RequestMapping("/api/admin/budget/")
 public class BudgetRestAdmin  extends AbstractController<Budget, BudgetDto, BudgetCriteria, BudgetAdminService, BudgetConverter> {
 
+
+     @GetMapping("/{budgetId}/remaining-amount")
+     public ResponseEntity<Long> calculateRemainingAmount(@PathVariable Long budgetId) throws Exception {
+        return super.calculateRemainingAmount(budgetId);
+    }
 
 
     @Operation(summary = "upload one budget")

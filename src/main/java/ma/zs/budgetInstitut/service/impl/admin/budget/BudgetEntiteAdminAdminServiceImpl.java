@@ -10,6 +10,8 @@ import ma.zs.budgetInstitut.zynerator.service.AbstractServiceImpl;
 import ma.zs.budgetInstitut.zynerator.util.ListUtil;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 
@@ -57,6 +59,8 @@ public class BudgetEntiteAdminAdminServiceImpl extends AbstractServiceImpl<Budge
     public long countByBudgetId(Long id){
         return dao.countByBudgetId(id);
     }
+  
+
 
 
 
