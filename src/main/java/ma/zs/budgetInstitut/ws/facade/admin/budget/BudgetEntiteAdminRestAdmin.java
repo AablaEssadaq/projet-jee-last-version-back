@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import ma.zs.budgetInstitut.bean.core.budget.BudgetEntiteAdmin;
 import ma.zs.budgetInstitut.dao.criteria.core.budget.BudgetEntiteAdminCriteria;
 import ma.zs.budgetInstitut.service.facade.admin.budget.BudgetEntiteAdminAdminService;
+import ma.zs.budgetInstitut.service.impl.admin.budget.BudgetAdminServiceImpl;
 import ma.zs.budgetInstitut.ws.converter.budget.BudgetEntiteAdminConverter;
 import ma.zs.budgetInstitut.ws.dto.budget.BudgetEntiteAdminDto;
 import ma.zs.budgetInstitut.zynerator.controller.AbstractController;
@@ -20,7 +21,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import ma.zs.budgetInstitut.zynerator.process.Result;
@@ -33,7 +34,7 @@ import ma.zs.budgetInstitut.zynerator.dto.FileTempDto;
 @RequestMapping("/api/admin/budgetEntiteAdmin/")
 public class BudgetEntiteAdminRestAdmin  extends AbstractController<BudgetEntiteAdmin, BudgetEntiteAdminDto, BudgetEntiteAdminCriteria, BudgetEntiteAdminAdminService, BudgetEntiteAdminConverter> {
 
-
+   
 
     @Operation(summary = "upload one budgetEntiteAdmin")
     @RequestMapping(value = "upload", method = RequestMethod.POST, consumes = "multipart/form-data")

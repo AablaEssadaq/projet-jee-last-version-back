@@ -152,7 +152,6 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
-
     public ResponseEntity<DTO> findWithAssociatedLists(Long id) {
         T loaded =  service.findWithAssociatedLists(id);
         converter.init(true);
@@ -160,6 +159,8 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
         return new ResponseEntity<>(dto, HttpStatus.OK);
      }
 
+
+  
 
 
 

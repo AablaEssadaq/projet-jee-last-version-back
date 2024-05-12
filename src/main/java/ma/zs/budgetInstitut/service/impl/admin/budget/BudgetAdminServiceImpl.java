@@ -10,6 +10,8 @@ import ma.zs.budgetInstitut.zynerator.service.AbstractServiceImpl;
 import ma.zs.budgetInstitut.zynerator.util.ListUtil;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 
@@ -62,6 +64,26 @@ public class BudgetAdminServiceImpl extends AbstractServiceImpl<Budget, BudgetCr
             budgetEntiteAdminService.update(resultBudgetEntiteAdmins.get(0),true);
         }
     }
+     
+    public BigDecimal calculateRemainingAmount(Long budgetId) {
+        Budget budget = dao.findById(budgetId).orElse(null);
+        if (budget == null) {
+            return null;
+        }
+        
+        BigDecimal budgetAmount = new BigDecimal(budget.getMontant().toString());
+        
+      
+        BigDecimal totalAllocatedAmount = budget.getBudgetEntiteAdmins().stream()
+                .map(BudgetEntiteAdmin::getMontantEntite)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    
+        BigDecimal remainingAmount = budgetAmount.subtract(totalAllocatedAmount);
+    
+        return remainingAmount.setScale(2, RoundingMode.HALF_UP);
+    }
+ 
+
 
 
 
@@ -84,5 +106,9 @@ public class BudgetAdminServiceImpl extends AbstractServiceImpl<Budget, BudgetCr
     public BudgetAdminServiceImpl(BudgetDao dao) {
         super(dao);
     }
+
+
+
+    
 
 }
